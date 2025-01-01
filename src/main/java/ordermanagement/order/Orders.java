@@ -1,21 +1,37 @@
 package ordermanagement.order;
 
+import jakarta.persistence.*;
+
+
 import java.time.LocalDateTime;
 
 // model class, for simplify, only include partial informations
-public class Order {
+@Entity // hibernate
+@Table(name = "Orders")
+public class Orders {
+    @Id
+    @SequenceGenerator(
+            name = "order_sequence",
+            sequenceName = "order_sequence",
+            allocationSize = 1
+     )
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "order_sequence"
+    )
+
     private Integer orderId;
-    private int customerId;
+    private Integer customerId;
     private String shippingAddress;
     private String billingAddress;
     private Double totalAmount;
     private LocalDateTime orderDate;
 
-    public Order() {
+    public Orders() {
     }
 
 
-    public Order(Integer orderId, int customerId, String shippingAddress, String billingAddress, Double totalAmount, LocalDateTime orderDate) {
+    public Orders(Integer orderId, int customerId, String shippingAddress, String billingAddress, Double totalAmount, LocalDateTime orderDate) {
         this.orderId = orderId;
         this.customerId = customerId;
         this.shippingAddress = shippingAddress;
@@ -24,11 +40,11 @@ public class Order {
         this.orderDate = orderDate;
     }
 
-    public Order(int customerId,
-                 String shippingAddress,
-                 String billingAddress,
-                 double totalAmount,
-                 LocalDateTime orderDate) {
+    public Orders(int customerId,
+                  String shippingAddress,
+                  String billingAddress,
+                  double totalAmount,
+                  LocalDateTime orderDate) {
         this.customerId = customerId;
         this.shippingAddress = shippingAddress;
         this.billingAddress = billingAddress;
